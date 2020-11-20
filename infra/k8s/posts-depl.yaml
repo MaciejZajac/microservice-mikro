@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1       # number of pods to make running particular image
+  # selectors and template are related
+  selector:         # selekctor is like: take a look at all pods with label of app posts
+    matchLabels:    #
+      app: posts    # app is just a name, can be ASDFGF and it is ok
+  template:         # configuration to pod that is about to be created
+    metadata:
+      labels:       # we want a pod to have a property of label of app posts
+        app: posts
+    spec:          # pod spec
+      containers:
+        - name: posts
+          image: maciejzajac1997/posts # image name that pod must be running
+
+
+# apiVersion: v1          # preset object, k8s can add custom objects. v1 is default k8s list of objects
+# kind: Pod               # type of object from v1 / wraps a container
+# metadata:               # config options for object we are about to create
+#   name: posts           # name of object when it is created  / command kubectl get pods
+# spec:                   # list of configuration options for pod.
+#   containers:           # array of elements 
+#     - name: posts       # one container named posts
+#       image: maciejzajac1997/posts:0.0.1 # exact image of container is posts from docker created from post folder / command docker build -t maciejzajac1997/posts:0.0.1 .
+# # without version, docket will put :lastest. k8s search computer on to find specific version 0.0.1
