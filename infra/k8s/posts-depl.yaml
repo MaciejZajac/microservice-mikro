@@ -16,14 +16,16 @@ spec:
       containers:
         - name: posts
           image: maciejzajac1997/posts # image name that pod must be running
-
-
-# apiVersion: v1          # preset object, k8s can add custom objects. v1 is default k8s list of objects
-# kind: Pod               # type of object from v1 / wraps a container
-# metadata:               # config options for object we are about to create
-#   name: posts           # name of object when it is created  / command kubectl get pods
-# spec:                   # list of configuration options for pod.
-#   containers:           # array of elements 
-#     - name: posts       # one container named posts
-#       image: maciejzajac1997/posts:0.0.1 # exact image of container is posts from docker created from post folder / command docker build -t maciejzajac1997/posts:0.0.1 .
-# # without version, docket will put :lastest. k8s search computer on to find specific version 0.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

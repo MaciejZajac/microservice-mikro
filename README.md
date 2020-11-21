@@ -26,3 +26,20 @@ make update to code
 build the image
 push the image to docker hub
 run 'kubectl rollout restart deployment [depl_name]'
+
+# types of services in kubernetes
+cluster IP - ease-to-remember URL to access a pod. Only exposes pods in the cluster.
+node port - makes a pod accessible from outside the cluster. Usually only used for dev purposes
+Load Balancer - makes a pod accessible from outside the cluster. This is the right way to expose a pod to the outside world
+external name - redirects an in-cluster request to CNAME url 
+
+
+<!-- apiVersion: v1          preset object, k8s can add custom objects. v1 is default k8s list of objects
+kind: Pod               type of object from v1 / wraps a container
+metadata:               config options for object we are about to create
+  name: posts           name of object when it is created  / command kubectl get pods
+spec:                   list of configuration options for pod.
+  containers:           array of elements 
+    - name: posts       one container named posts
+      image: maciejzajac1997/posts:0.0.1 exact image of container is posts from docker created from post folder / command docker build -t maciejzajac1997/posts:0.0.1 .
+without version, docket will put :lastest. k8s search computer on to find specific version 0.0.1 -->

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: NodePort
+  selector: # try to find all pods with labels with app: posts
+    app: posts # posts-depl.yaml => template labels of app posts
+  ports:
+    - name: posts
+      protocol: TCP   
+      port: 4000 # we send request to service at port 4000
+      targetPort: 4000 # service redirect to pod with port 4000, port and targetPort are usually the same
+      
